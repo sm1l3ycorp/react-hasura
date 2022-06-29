@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Pokedex from './Components/Pokedex';
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+
+const authToken = `7J921R5C7eCOTBfzWsd3qw5Lcd49HeuFJwffnWwZGogTengn6oIlRjsVZR0qxSkr`;
+
+const client = new ApolloClient({
+  uri: "https://social-arachnid-29.hasura.app/v1/graphql",
+  headers: {
+    'x-hasura-admin-secret': `${authToken}`
+  },
+  cache: new InMemoryCache(),
+});
 
 function App() {
   return (
+    <ApolloProvider client={client}>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Pokedex />
     </div>
+    </ApolloProvider>
   );
 }
 
